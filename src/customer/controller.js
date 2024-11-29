@@ -55,9 +55,30 @@ const deletecustomers = (req, res) => {
     });
   });
 };
+
+const updatecustomer = (req, res) => {
+  const id = parseInt(req.params.id);
+  const { name, age } = req.body;
+
+  pool.query("SELECT * FROM nodedb WHERE  id = $1", [id], (err, data) => {
+    const nocustomer = !data.rows.length;
+    if (nocustomer) {
+      res.send("no customer");
+    }
+    pool.query(
+      "UPDATE nodedb SET  name=$1, age =$2 WHERE id =$3 ",
+      [name, age, id],
+      (err, data) => {
+        if (err) res.send(error);
+        res.send("updated");
+      }
+    );
+  });
+};
 module.exports = {
   getCustomers,
   getCustomersById,
   addCustomers,
   deletecustomers,
+  updatecustomer,
 };
