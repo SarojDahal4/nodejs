@@ -9,4 +9,4 @@ app.get("/", (req, res) => {
 });
 app.use("/api/v1/customers", customerRoutes);
 
-app.listen(4000, () => console.log("app logging on port 3000"));
+app.listen(4000, () => console.log("app logging on port 4000"));
